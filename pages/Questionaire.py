@@ -5,6 +5,17 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 from streamlit import switch_page
 
+# Hide sidebar while keeping it closed
+hide_st_style = """
+    <style>
+    #MainMenu {visibility: hidden;} /* Hide the main menu */
+    footer {visibility: hidden;}    /* Hide the footer */
+    header {visibility: hidden;}    /* Hide the header */
+    [data-testid="stSidebar"] {display: none;}  /* Hide the sidebar */
+    </style>
+"""
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 # Load the .env file and get the API key
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
@@ -14,20 +25,6 @@ if not api_key:
     st.write("Error: API key not found.")
 else:
     genai.configure(api_key=api_key)
-#import toml
-
-# Load the config.toml file
-#config = toml.load("config.toml")
-
-# Access the GEMINI_API_KEY
-#gemini_api_key = config['api_keys']['gemini_api_key']
-
-# Debugging: Print out the GEMINI_API_KEY to ensure it is loaded
-# if gemini_api_key is None:
-#     print("GEMINI_API_KEY not found!")
-# else:
-#     print(f"GEMINI_API_KEY found: {gemini_api_key}")
-
 
     # Create the model configuration
     generation_config = {
@@ -70,7 +67,7 @@ def set_background_image(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Set the background image
-set_background_image('/Users/alejandroleon/ShellHacks/image2.jpg')
+set_background_image('image2.jpg')
 
 # Title
 st.markdown("<div style='text-align: center;'><h1 style='color: #353535;'>Let's start by answering some questions:</h1></div>", unsafe_allow_html=True)
@@ -79,7 +76,7 @@ st.markdown("<div style='text-align: center;'><h1 style='color: #353535;'>Let's 
 custom_input_style = """
     <style>
     div.stTextInput > label {
-        color: black; /* Change the label color */
+        color: #353535; /* Change the label color */
     }
     div.stTextInput > div > input {
         color: #353535; /* Change the input text color */
@@ -174,7 +171,7 @@ if st.button("Get Diet Recommendation"):
             st.session_state['diet_recommendation'] = response.text
 
             # Switch to page2
-            switch_page("/Users/pacoortiz/Desktop/ShellHacks/pages/Generated Diet Recommendation.py")
+            switch_page("pages/Generated Diet Recommendation.py")
 
         except Exception as e:
             st.write(f"An error occurred: {e}")
@@ -196,3 +193,6 @@ if st.button("Get Diet Recommendation"):
 #             switch_page("/Users/pacoortiz/Desktop/ShellHacks/pages/Generated Diet Recommendation.py")
 #         else:
 #             st.write("Please enter all required information (name, weight, gender, etc.).")
+st.markdown("<div style='text-align: right;'><h1 style='color: #353535; font-size: 12px; font-family: Roboto;'>"
+            "Powered by Gemini"
+            "</h1></div>", unsafe_allow_html=True)
