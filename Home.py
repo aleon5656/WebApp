@@ -2,6 +2,19 @@ import streamlit as st
 import base64
 from streamlit_extras.switch_page_button import switch_page
 
+# Set page configuration to wide
+st.set_page_config(page_title="Dietary Options", layout="wide")
+
+# Hide sidebar while keeping it closed
+hide_st_style = """
+    <style>
+    #MainMenu {visibility: hidden;} /* Hide the main menu */
+    footer {visibility: hidden;}    /* Hide the footer */
+    header {visibility: hidden;}    /* Hide the header */
+    [data-testid="stSidebar"] {display: none;}  /* Hide the sidebar */
+    </style>
+"""
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # Function to convert the image to base64 encoding
 def get_base64_of_bin_file(bin_file):
@@ -24,21 +37,20 @@ def set_background_image(png_file):
     """
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
-
-
 # Set the background image
-set_background_image('/Users/alejandroleon/ShellHacks/image2.jpg')
+set_background_image('image2.jpg')
 
-#title
+# Title
 st.markdown("<div style='text-align: center;'><h1 style='color: #353535; font-size: 80px; font-family: Roboto;'>DIETARY OPTIONS</h1></div>", unsafe_allow_html=True)
-#subtitle
-st.markdown("<div style='text-align: left;'><h1 style='color: #353535; font-size: 20px; font-family: Roboto;'>"
+
+# Subtitle
+st.markdown("<div style='text-align: center;'><h1 style='color: #353535; font-size: 20px; font-family: Roboto;'>"
             "Welcome to the Affordable Healthy Eating Resources program! Our mission is to empower communities by providing access to affordable, nutritious food options and resources that promote healthy eating habits for all."
             "</h1></div>", unsafe_allow_html=True)
-st.markdown("<div style='text-align: center;'><h1 style='color: #353535; font-size: 20px; font-family: Roboto;'>"
-            "  Are you ready?"
-            "</h1></div>", unsafe_allow_html=True)
 
+st.markdown("<div style='text-align: center;'><h1 style='color: #353535; font-size: 20px; font-family: Roboto;'>"
+            "Are you ready?"
+            "</h1></div>", unsafe_allow_html=True)
 
 # Custom button style with full-page centering
 custom_button_style = """
@@ -62,16 +74,14 @@ custom_button_style = """
     }
     </style>
     """
-
 # Apply the custom style
 st.markdown(custom_button_style, unsafe_allow_html=True)
 
 # Button with action
 if st.button('START'):
-    switch_page("Questionaire")
+    switch_page("questionaire")  # Corrected spelling here
 
-
-
+# Footer
 st.markdown("<div style='text-align: right;'><h1 style='color: #353535; font-size: 12px; font-family: Roboto;'>"
             "Powered by Gemini"
             "</h1></div>", unsafe_allow_html=True)
